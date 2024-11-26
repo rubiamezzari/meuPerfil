@@ -1,24 +1,43 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Define a codificação de caracteres como UTF-8, para suportar caracteres especiais -->
     <meta charset="UTF-8">
+    
+    <!-- Configura a visualização para dispositivos móveis, ajustando o layout da página -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Define o título da página exibido na aba do navegador -->
     <title>Perfil Interativo</title>
+
+    <!-- Inclui a folha de estilo do Bootstrap para o design da página -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <div class="container my-5">
+        <!-- Cria um cartão (card) que contém as informações do perfil -->
         <div class="card" id="profileCard">
             <div class="card-body text-center">
+                <!-- Imagem de perfil com um clique para mudar a imagem -->
                 <img src="https://via.placeholder.com/150" alt="Imagem de Perfil" id="profileImage" class="rounded-circle mb-3" style="width: 150px;" onclick="mudarImagem()">
+                
+                <!-- Nome do perfil -->
                 <h3 id="profileName">Nome: Meu Perfil</h3>
+                
+                <!-- Idade do perfil -->
                 <p id="profileAge">Idade: 18</p>
+                
+                <!-- Título para a lista de hobbies -->
                 <h5>Hobbies:</h5>
+                
+                <!-- Lista de hobbies, onde cada item pode ser removido ao clicar -->
                 <ul id="hobbiesList" class="list-group mb-3">
                     <li class="list-group-item" onclick="removerHobby(this)">Leitura</li>
                     <li class="list-group-item" onclick="removerHobby(this)">Esportes</li>
                     <li class="list-group-item" onclick="removerHobby(this)">Música</li>
                 </ul>
+                
+                <!-- Botões para alterar as informações -->
                 <button class="btn btn-primary me-2" onclick="alterarNome()">Alterar Nome</button>
                 <button class="btn btn-success me-2" onclick="adicionarHobby()">Adicionar Hobby</button>
                 <button class="btn btn-info me-2" onclick="alterarIdade()">Alterar Idade</button>
@@ -30,52 +49,68 @@
     <script>
         // Função para alterar o nome
         function alterarNome() {
+            // Solicita o novo nome ao usuário
             const novoNome = prompt("Digite o novo nome:");
             if (novoNome) {
+                // Atualiza o nome na página
                 document.getElementById("profileName").textContent = "Nome: " + novoNome;
             }
         }
 
         // Função para adicionar um novo hobby
         function adicionarHobby() {
+            // Solicita o novo hobby ao usuário
             const novoHobby = prompt("Digite um novo hobby:");
             if (novoHobby) {
+                // Cria um novo item de lista
                 const li = document.createElement("li");
-                li.textContent = novoHobby;
-                li.className = "list-group-item";
-                li.onclick = function() { removerHobby(li) }; // Adiciona funcionalidade de remover
+                li.textContent = novoHobby; // Define o texto do hobby
+                li.className = "list-group-item"; // Aplica a classe do Bootstrap para o estilo de lista
+                // Adiciona a funcionalidade de remover o hobby ao clicar no item
+                li.onclick = function() { removerHobby(li) }; 
+                // Adiciona o novo hobby à lista
                 document.getElementById("hobbiesList").appendChild(li);
             }
         }
 
         // Função para remover um hobby
         function removerHobby(hobbyElement) {
+            // Confirma com o usuário antes de remover o hobby
             if (confirm("Tem certeza que deseja excluir este hobby?")) {
+                // Remove o item da lista
                 hobbyElement.remove();
             }
         }
 
         // Função para alterar a idade
         function alterarIdade() {
+            // Solicita a nova idade ao usuário
             const novaIdade = prompt("Digite a nova idade:");
             if (novaIdade && !isNaN(novaIdade)) {
+                // Atualiza a idade na página
                 document.getElementById("profileAge").textContent = "Idade: " + novaIdade;
             } else {
+                // Exibe um alerta se a idade não for válida
                 alert("Por favor, insira uma idade válida.");
             }
         }
 
         // Função para mudar a cor de fundo do card
         function mudarCorDeFundo() {
+            // Array com algumas cores possíveis para o fundo
             const cores = ["#f8d7da", "#d1ecf1", "#d4edda", "#ffb3cd", "#cce5ff"];
+            // Seleciona uma cor aleatória do array
             const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+            // Aplica a cor selecionada ao fundo do card
             document.getElementById("profileCard").style.backgroundColor = corAleatoria;
         }
 
         // Função para mudar a imagem de perfil
         function mudarImagem() {
+            // Solicita a URL da nova imagem ao usuário
             const novaImagem = prompt("Digite a URL da nova imagem de perfil:");
             if (novaImagem) {
+                // Atualiza a imagem de perfil com a nova URL fornecida
                 document.getElementById("profileImage").src = novaImagem;
             }
         }
